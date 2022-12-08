@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sharptrack/screens/homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '#Track',
-      home: Scaffold(
-        appBar: AppBar(title: Text('#Track')),
-        body: Container(),
+      debugShowCheckedModeBanner: false,
+      theme: Theme.of(context).copyWith(
+        appBarTheme:
+            const AppBarTheme(backgroundColor: Colors.black, centerTitle: true),
       ),
+      title: '#Track',
+      home: HomePage(),
     );
   }
 }
