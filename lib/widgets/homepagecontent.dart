@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sharptrack/widgets/historytile.dart';
-import 'package:sharptrack/widgets/servicesCard.dart';
+import 'package:sharptrack/widgets/servicescard.dart';
 
 class HomePageContent extends StatelessWidget {
   HomePageContent({super.key});
