@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Settings extends StatelessWidget {
   Settings({super.key});
@@ -41,19 +40,14 @@ class Settings extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               SharedPreferences pre = await SharedPreferences.getInstance();
-              control0.text == control1.text
-                  ? {
-                      pre.setString("#Pin", control0.text),
-                      Fluttertoast.showToast(
-                          msg: 'Saved PIN',
-                          backgroundColor:
-                              const Color.fromARGB(255, 61, 60, 60),
-                          timeInSecForIosWeb: 2),
-                    }
-                  : Fluttertoast.showToast(
-                      msg: 'PIN not same',
-                      backgroundColor: const Color.fromARGB(255, 61, 60, 60),
-                      timeInSecForIosWeb: 2);
+              if (control0.text == control1.text) {
+                pre.setString("#Pin", control0.text);
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Saved PIN')));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('PIN not same')));
+              }
               control0.clear();
               control1.clear();
             },

@@ -32,7 +32,7 @@ class HomePageContent extends StatelessWidget {
             'Hi Saurabh!',
             style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20.0,
           ),
           GridView.count(
