@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sharptrack/screens/profilepage.dart';
-
+import 'package:sharptrack/screens/helpscreen.dart';
 import 'package:sharptrack/widgets/homepagecontent.dart';
 import 'package:sharptrack/widgets/settings.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -33,10 +33,14 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.white,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) {
-                    return const ProfilePage();
-                  })));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) {
+                        return const ProfilePage();
+                      }),
+                    ),
+                  );
                 },
                 child: const Text(
                   'S',
@@ -54,7 +58,12 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: InkWell(
                 onTap: () {
-                  //open help page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const Helpscreen();
+                    }),
+                  );
                 },
                 child: const Icon(
                   Icons.help_outline_outlined,

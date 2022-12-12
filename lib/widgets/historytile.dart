@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class HistoryTile extends StatelessWidget {
@@ -49,15 +47,15 @@ class HistoryTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${tileTitles[index]}',
-                  style: TextStyle(
+                  tileTitles[index],
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16.0,
                   ),
                 ),
                 Text(
-                  '${tileTimes[index]}',
-                  style: TextStyle(color: Colors.black54),
+                  tileTimes[index],
+                  style: const TextStyle(color: Colors.black54),
                 ),
               ],
             )),
