@@ -64,7 +64,6 @@ class HomePageContent extends StatelessWidget {
               }),
             ),
           ),
-          // Text('See more...'),
         ],
       ),
     );
