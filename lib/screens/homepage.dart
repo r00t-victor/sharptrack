@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sharptrack/screens/profilepage.dart';
 
 import 'package:sharptrack/widgets/homepagecontent.dart';
 import 'package:sharptrack/widgets/settings.dart';
@@ -16,15 +17,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: CircleAvatar(
             backgroundColor: Colors.white,
-            child: Text(
-              'S',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return const ProfilePage();
+                })));
+              },
+              child: const Text(
+                'S',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                ),
               ),
             ),
           ),
