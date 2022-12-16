@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: ((context) {
-                        return const ProfilePage();
+                        return ProfilePage();
                       }),
                     ),
                   );

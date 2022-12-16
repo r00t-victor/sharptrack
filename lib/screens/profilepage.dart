@@ -1,29 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:sharptrack/skeleton.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProfilePage extends StatelessWidget {
+  ProfilePage({super.key});
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController control = TextEditingController();
-
-  void initPreference() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? name = prefs.getString('name');
-    if (name != null) {
-      control.text = name;
-    } else {
-      control.text = 'Saurabh';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    initPreference();
+    control.text = Provider.of<Skeleton>(context, listen: false).name;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -88,9 +74,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   onPressed: () async {
-                    final prefs = await SharedPreferences.getInstance();
                     var name = control.text;
-                    prefs.setString('name', name);
+                    Provider.of<Skeleton>(context, listen: false).setName =
+                        name;
                     ScaffoldMessenger.of(context)
                         .showSnackBar(const SnackBar(content: Text('Saved!')));
                   },

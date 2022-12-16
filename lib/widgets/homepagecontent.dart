@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sharptrack/skeleton.dart';
 import 'package:sharptrack/widgets/historytile.dart';
 import 'package:sharptrack/widgets/servicescard.dart';
 
@@ -28,10 +30,12 @@ class HomePageContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Hi Saurabh!',
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
-          ),
+          Consumer<Skeleton>(builder: ((context, value, child) {
+            return Text(
+              'Hi ${value.name}!',
+              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+            );
+          })),
           const SizedBox(
             height: 20.0,
           ),
