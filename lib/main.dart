@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sharptrack/screens/homepage.dart';
+import 'package:sharptrack/skeleton.dart';
 import 'package:sharptrack/smsprocessor.dart';
 import 'package:telephony/telephony.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => Skeleton(), child: const MyApp()));
 }
 
 //Static function for backround running
