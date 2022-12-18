@@ -25,8 +25,14 @@ class SmsProcessor {
       return;
     }
     if (await verifyPin(messageList[0])) {
-      print('playing audio');
-      findMyDevice();
+      switch (messageList[1]) {
+        case 'findMyDevice':
+          print('playing audio');
+          findMyDevice();
+          break;
+        default:
+          print(messageList[1]);
+      }
     } else {
       print('wrong pass');
     }
@@ -35,17 +41,14 @@ class SmsProcessor {
   static void findMyDevice() async {
     final player = AudioPlayer();
     await player.setSource(AssetSource('ring.mp3'));
-    //await player.setVolume(0.8);
-    await player.resume();
-
     //volume control
-    double _val = await VolumeControl.volume;
-// Set the new volume value, between 0-1
+    double val = await VolumeControl.volume;
+    // Set the new volume value, between 0-1
     VolumeControl.setVolume(0.8);
-
+    await player.resume();
     await Future.delayed(const Duration(seconds: 10));
     player.stop();
 
-    VolumeControl.setVolume(_val);
+    VolumeControl.setVolume(val);
   }
 }
