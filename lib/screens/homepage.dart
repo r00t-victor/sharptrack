@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sharptrack/screens/profilepage.dart';
 import 'package:sharptrack/screens/helpscreen.dart';
+import 'package:sharptrack/skeleton.dart';
 import 'package:sharptrack/widgets/homepagecontent.dart';
 import 'package:sharptrack/widgets/settings.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +14,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<Skeleton>(context, listen: false)
+        .enableBackgoundService(context);
+  }
+
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
