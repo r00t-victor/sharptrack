@@ -51,11 +51,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                child: const Text(
-                  'S',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
+                child: Consumer<Skeleton>(
+                  builder: (context, value, child) => Text(
+                    value.name[0],
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                    ),
                   ),
                 ),
               ),

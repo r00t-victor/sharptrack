@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sharptrack/skeleton.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController control = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     control.text = Provider.of<Skeleton>(context, listen: false).name;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -38,9 +48,14 @@ class ProfilePage extends StatelessWidget {
                   onTap: () {
                     print('Tapped');
                   },
-                  child: const Text(
-                    'S',
-                    style: TextStyle(color: Colors.black, fontSize: 40.0),
+                  child: Consumer<Skeleton>(
+                    builder: (context, value, child) => Text(
+                      value.name[0],
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 40,
+                      ),
+                    ),
                   ),
                 ),
               ),
