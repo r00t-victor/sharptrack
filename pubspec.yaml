@@ -42,6 +42,7 @@ dependencies:
   volume_control: ^0.1.5
   provider: ^6.0.5
   sound_mode: ^2.0.2
+  flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:volume_control/volume_control.dart';
 import 'package:sound_mode/sound_mode.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class SmsProcessor {
   static Future<bool> verifyPin(String pass) async {
@@ -30,7 +31,10 @@ class SmsProcessor {
     if (await verifyPin(messageList[0])) {
       switch (messageList[1]) {
         case 'findMyDevice':
-          print('playing audio');
+          //
+          //
+          //
+          //print('playing audio');
           findMyDevice();
           break;
         case 'ring': //ring Command
@@ -38,6 +42,10 @@ class SmsProcessor {
           break;
         case 'dnd': //dnd Command
           dnd();
+          break;
+        case 'callBack':
+          //print('Callback');
+          callto();
           break;
         default:
           print(messageList[1]);
@@ -78,6 +86,14 @@ class SmsProcessor {
       await SoundMode.setSoundMode(RingerModeStatus.silent);
     } on PlatformException {
       print('Please enable permissions required');
+    }
+  }
+
+  static void callto() async {
+    try {
+      await FlutterPhoneDirectCaller.callNumber('8933884033');
+    } catch (e) {
+      print(e.toString());
     }
   }
 }
