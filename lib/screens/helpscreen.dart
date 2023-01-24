@@ -52,7 +52,7 @@ class Helpscreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        "#PIN DND",
+                        "#PIN dnd",
                         textScaleFactor: 1.6,
                       ),
                     ),
@@ -85,7 +85,7 @@ class Helpscreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        "#PIN profile G",
+                        "#PIN ring On",
                         textScaleFactor: 1.6,
                       ),
                     ),
@@ -101,23 +101,7 @@ class Helpscreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        "#PIN profile S",
-                        textScaleFactor: 1.6,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text("Switch the device to Silent profile",
-                          textScaleFactor: 1.2),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "#PIN profile V",
+                        "#PIN ring Off",
                         textScaleFactor: 1.6,
                       ),
                     ),
