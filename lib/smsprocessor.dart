@@ -1,6 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:volume_control/volume_control.dart';
+import 'package:sound_mode/sound_mode.dart';
 
 class SmsProcessor {
   static Future<bool> verifyPin(String pass) async {
@@ -30,11 +33,17 @@ class SmsProcessor {
           print('playing audio');
           findMyDevice();
           break;
+        case 'ring': //ring Command
+          ring(messageList[2]);
+          break;
+        case 'dnd': //dnd Command
+          dnd();
+          break;
         default:
           print(messageList[1]);
       }
     } else {
-      print('wrong pass');
+      print('wrong password');
     }
   }
 
@@ -50,5 +59,25 @@ class SmsProcessor {
     player.stop();
 
     VolumeControl.setVolume(val);
+  }
+
+  static void ring(String option) async {
+    try {
+      if (option == 'off') {
+        await SoundMode.setSoundMode(RingerModeStatus.vibrate);
+      } else {
+        await SoundMode.setSoundMode(RingerModeStatus.normal);
+      }
+    } on PlatformException {
+      print('Please enable permissions required');
+    }
+  }
+
+  static void dnd() async {
+    try {
+      await SoundMode.setSoundMode(RingerModeStatus.silent);
+    } on PlatformException {
+      print('Please enable permissions required');
+    }
   }
 }
