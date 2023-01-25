@@ -6,22 +6,6 @@ import 'package:sharptrack/widgets/servicescard.dart';
 
 class HomePageContent extends StatelessWidget {
   HomePageContent({super.key});
-  final List<String> servicesLabels = [
-    'Messages',
-    'Location',
-    'Calls',
-    'Profiles',
-    'Find My Device',
-    'Do Not Disturb'
-  ];
-  final List<IconData> servicesIcons = [
-    Icons.sms,
-    Icons.location_on,
-    Icons.call,
-    Icons.vibration,
-    Icons.music_note,
-    Icons.do_not_disturb
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +27,9 @@ class HomePageContent extends StatelessWidget {
             shrinkWrap: true,
             crossAxisCount: 3,
             children: List.generate(
-              servicesLabels.length,
+              Provider.of<Skeleton>(context).servicesLabels.length,
               ((index) {
-                return ServicesCard(
-                    label: servicesLabels[index], icon: servicesIcons[index]);
+                return ServicesCard(index: index);
               }),
             ),
           ),
@@ -61,11 +44,18 @@ class HomePageContent extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: 7,
-              itemBuilder: ((context, index) {
-                return HistoryTile(index: index);
-              }),
+            child: Consumer<Skeleton>(
+              builder: (context, value, child) {
+                return ListView.builder(
+                  itemCount: value.historyCount,
+                  itemBuilder: ((context, index) {
+                    return HistoryTile(
+                      tileIcon: value.getHistoryIcon(index),
+                      tileTitle: value.getHistoryTitle(index),
+                    );
+                  }),
+                );
+              },
             ),
           ),
         ],
