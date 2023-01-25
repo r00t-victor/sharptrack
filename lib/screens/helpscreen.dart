@@ -85,7 +85,7 @@ class Helpscreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        "#PIN ring",
+                        "#PIN ring on",
                         textScaleFactor: 1.6,
                       ),
                     ),
