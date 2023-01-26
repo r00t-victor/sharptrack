@@ -39,7 +39,7 @@ class HomePageContent extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
-              '#History',
+              'History',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ),
@@ -50,8 +50,10 @@ class HomePageContent extends StatelessWidget {
                   itemCount: value.historyCount,
                   itemBuilder: ((context, index) {
                     return HistoryTile(
-                      tileIcon: value.getHistoryIcon(index),
-                      tileTitle: value.getHistoryTitle(index),
+                      tileIcon:
+                          value.getHistoryIcon(value.historyCount - index - 1),
+                      tileTitle:
+                          value.getHistoryTitle(value.historyCount - index - 1),
                     );
                   }),
                 );
