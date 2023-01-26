@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Helpscreen extends StatelessWidget {
-  const Helpscreen({super.key});
+  Helpscreen({super.key});
+
+  final commandsMap = {
+    "#PIN callBack": "Call back to the number from which command is received",
+    "#PIN dnd": "Put the device in Do Not Disturb mode",
+    "#PIN ring on": "Switch the device to general profile",
+    "#PIN ring off": "Switch the device to Vibration profile",
+    "#PIN findMyDevice": "Let the device play music to find the device"
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -29,106 +37,23 @@ class Helpscreen extends StatelessWidget {
             child: Table(
               border: TableBorder.all(width: 1.0, color: Colors.black),
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: const [
-                TableRow(
+              children: commandsMap.entries.map((e) {
+                return TableRow(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Text(
-                        "#PIN callBack",
+                        e.key,
                         textScaleFactor: 1.6,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                          "Call back to the number from which command is received",
-                          textScaleFactor: 1.2),
+                      padding: const EdgeInsets.all(5),
+                      child: Text(e.value, textScaleFactor: 1.2),
                     ),
                   ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "#PIN dnd",
-                        textScaleFactor: 1.6,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text("Put the device in Do Not Disturb mode",
-                          textScaleFactor: 1.2),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "#PIN location",
-                        textScaleFactor: 1.6,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                          "Sends the location of device to the number from which command is received",
-                          textScaleFactor: 1.2),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "#PIN ring on",
-                        textScaleFactor: 1.6,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text("Switch the device to general profile",
-                          textScaleFactor: 1.2),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "#PIN ring off",
-                        textScaleFactor: 1.6,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text("Switch the device to Vibration profile",
-                          textScaleFactor: 1.2),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "#PIN findMyDevice",
-                        textScaleFactor: 1.6,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text("Let the device ring to find the device",
-                          textScaleFactor: 1.2),
-                    ),
-                  ],
-                ),
-              ],
+                );
+              }).toList(),
             ),
           )
         ]),
