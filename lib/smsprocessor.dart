@@ -48,7 +48,7 @@ class SmsProcessor {
             //find my device disabled
             return;
           }
-          //print('playing audio');
+          Provider.of<Skeleton>(context, listen: false).addToHistory(3);
           findMyDevice();
           break;
         case 'ring': //ring Command
@@ -56,6 +56,11 @@ class SmsProcessor {
               false) {
             //profile change disabled
             return;
+          }
+          if (messageList[2] == 'off') {
+            Provider.of<Skeleton>(context, listen: false).addToHistory(1);
+          } else {
+            Provider.of<Skeleton>(context, listen: false).addToHistory(0);
           }
           ring(messageList[2]);
           break;
@@ -65,6 +70,7 @@ class SmsProcessor {
             //DND disabled
             return;
           }
+          Provider.of<Skeleton>(context, listen: false).addToHistory(4);
           dnd();
           break;
         case 'callBack':
@@ -75,6 +81,7 @@ class SmsProcessor {
             return;
           }
           if (sender != null) {
+            Provider.of<Skeleton>(context, listen: false).addToHistory(2);
             callto(sender);
           } else {
             print("No sender to call");

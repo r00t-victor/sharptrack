@@ -55,7 +55,23 @@ class Skeleton extends ChangeNotifier {
 
   List<bool> servicesActive = [false, true, true, true, true];
 
-  List<int> history = [2, 1, 4, 3, 4];
+  List<String> functionsForHistory = [
+    'Ring on',
+    'vibrate',
+    'Callback',
+    'Find My Device',
+    'Do not Disturb'
+  ];
+
+  List<IconData> iconsForHistory = [
+    Icons.ring_volume,
+    Icons.vibration,
+    Icons.call,
+    Icons.music_note,
+    Icons.do_not_disturb
+  ];
+
+  List<int> history = [];
 
   void toggleServices(int index, BuildContext context) {
     print("Toggling ${servicesLabels[index]}");
@@ -98,9 +114,49 @@ class Skeleton extends ChangeNotifier {
       servicesActive[0] = true;
       notifyListeners();
       startTelephony(context);
+      loadHistory();
     } else {
       print('permission not available');
     }
+  }
+
+  void loadHistory() async {
+    final prefs = SharedPreferences.getInstance();
+    prefs.then((value) {
+      try {
+        var h = jsonDecode(value.getString('history') ?? jsonEncode([]));
+        history = [];
+        for (final a in h) {
+          history.add(a);
+        }
+        notifyListeners();
+      } catch (e) {
+        print(e);
+      }
+    });
+  }
+
+  void addToHistory(int index) async {
+    final prefs = SharedPreferences.getInstance();
+    prefs.then((value) {
+      try {
+        List<int> h = [
+          ...jsonDecode(value.getString('history') ?? jsonEncode([]))
+        ];
+        if (h.length > 4) {
+          h.removeAt(0);
+        }
+        h.add(index);
+        history = [];
+        for (final a in h) {
+          history.add(a);
+        }
+        value.setString('history', jsonEncode(history));
+        notifyListeners();
+      } catch (e) {
+        print(e);
+      }
+    });
   }
 
   int get historyCount {
@@ -108,10 +164,10 @@ class Skeleton extends ChangeNotifier {
   }
 
   IconData getHistoryIcon(index) {
-    return servicesIcons[history[index]];
+    return iconsForHistory[history[index]];
   }
 
   String getHistoryTitle(index) {
-    return servicesLabels[history[index]];
+    return functionsForHistory[history[index]];
   }
 }
