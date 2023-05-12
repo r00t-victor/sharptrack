@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'smsprocessor.dart';
 import 'package:telephony/telephony.dart';
+import 'package:flutter_background/flutter_background.dart';
 
 BuildContext? appContext;
 //Static function for backround running
@@ -11,7 +12,7 @@ BuildContext? appContext;
 backgroundMessageHandler(SmsMessage message) async {
   String? text = message.body;
   if (text != null) {
-    SmsProcessor.processSms(text, message.address, appContext);
+    SmsProcessor.processSms(text, message.address, null);
   }
   // debugPrint(message.body);
 }

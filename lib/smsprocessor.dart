@@ -22,13 +22,12 @@ class SmsProcessor {
 
   static void processSms(
       String messageData, String? sender, BuildContext? context) async {
-    if (context == null) {
-      return;
-    }
-    if (Provider.of<Skeleton>(context, listen: false).servicesActive[0] ==
-        false) {
-      //message reading is disabled
-      return;
+    if (context != null) {
+      if (Provider.of<Skeleton>(context, listen: false).servicesActive[0] ==
+          false) {
+        //message reading is disabled
+        return;
+      }
     }
     if (messageData[0] != '#') {
       print('Skipping message');
@@ -43,45 +42,58 @@ class SmsProcessor {
     if (await verifyPin(messageList[0])) {
       switch (messageList[1]) {
         case 'findMyDevice':
-          if (Provider.of<Skeleton>(context, listen: false).servicesActive[3] ==
-              false) {
-            //find my device disabled
-            return;
+          if (context != null) {
+            if (Provider.of<Skeleton>(context, listen: false)
+                    .servicesActive[3] ==
+                false) {
+              //find my device disabled
+              return;
+            }
+            Provider.of<Skeleton>(context, listen: false).addToHistory(3);
           }
-          Provider.of<Skeleton>(context, listen: false).addToHistory(3);
           findMyDevice();
           break;
         case 'ring': //ring Command
-          if (Provider.of<Skeleton>(context, listen: false).servicesActive[2] ==
-              false) {
-            //profile change disabled
-            return;
-          }
-          if (messageList[2] == 'off') {
-            Provider.of<Skeleton>(context, listen: false).addToHistory(1);
-          } else {
-            Provider.of<Skeleton>(context, listen: false).addToHistory(0);
+          if (context != null) {
+            if (Provider.of<Skeleton>(context, listen: false)
+                    .servicesActive[2] ==
+                false) {
+              //profile change disabled
+              return;
+            }
+            if (messageList[2] == 'off') {
+              Provider.of<Skeleton>(context, listen: false).addToHistory(1);
+            } else {
+              Provider.of<Skeleton>(context, listen: false).addToHistory(0);
+            }
           }
           ring(messageList[2]);
           break;
         case 'dnd': //dnd Command
-          if (Provider.of<Skeleton>(context, listen: false).servicesActive[4] ==
-              false) {
-            //DND disabled
-            return;
+          if (context != null) {
+            if (Provider.of<Skeleton>(context, listen: false)
+                    .servicesActive[4] ==
+                false) {
+              //DND disabled
+              return;
+            }
+            Provider.of<Skeleton>(context, listen: false).addToHistory(4);
           }
-          Provider.of<Skeleton>(context, listen: false).addToHistory(4);
           dnd();
           break;
         case 'callBack':
-          //print('Callback');
-          if (Provider.of<Skeleton>(context, listen: false).servicesActive[1] ==
-              false) {
-            //Calling disabled
-            return;
-          }
           if (sender != null) {
-            Provider.of<Skeleton>(context, listen: false).addToHistory(2);
+            if (context != null) {
+              //print('Callback');
+              if (Provider.of<Skeleton>(context, listen: false)
+                      .servicesActive[1] ==
+                  false) {
+                //Calling disabled
+                return;
+              }
+
+              Provider.of<Skeleton>(context, listen: false).addToHistory(2);
+            }
             callto(sender);
           } else {
             print("No sender to call");
@@ -101,7 +113,7 @@ class SmsProcessor {
     //volume control
     double val = await VolumeControl.volume;
     // Set the new volume value, between 0-1
-    VolumeControl.setVolume(0.8);
+    VolumeControl.setVolume(1.0);
     await player.resume();
     await Future.delayed(const Duration(seconds: 10));
     player.stop();
