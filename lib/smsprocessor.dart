@@ -8,6 +8,7 @@ import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:volume_control/volume_control.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:telephony/telephony.dart';
 
 class SmsProcessor {
   static Future<bool> verifyPin(String pass) async {
@@ -69,6 +70,12 @@ class SmsProcessor {
           }
           ring(messageList[2]);
           break;
+
+        //                                                           DemoOpen
+        case 'demo':
+          _sendSms("8737875762", "hi this is demo msg");
+          break;
+        //                                                           DemoClose
         case 'dnd': //dnd Command
           if (context != null) {
             if (Provider.of<Skeleton>(context, listen: false)
@@ -139,6 +146,16 @@ class SmsProcessor {
     } on PlatformException {
       print('Please enable permissions required');
     }
+  }
+
+  static void _sendSms(recepient, body) async {
+    //final Telephony telephony = Telephony.instance;
+    try {
+      await Telephony.backgroundInstance.sendSms(to: recepient, message: body);
+    } catch (e) {
+      print(e.toString());
+    }
+    print("Sent");
   }
 
   static void callto(String sender) async {
