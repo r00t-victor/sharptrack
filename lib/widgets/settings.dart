@@ -131,8 +131,6 @@ class _SettingsState extends State<Settings> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          SharedPreferences pre =
-                              await SharedPreferences.getInstance();
                           if (control2.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -211,7 +209,7 @@ class _SettingsState extends State<Settings> {
                           SharedPreferences pre =
                               await SharedPreferences.getInstance();
                           if (control3.text == control4.text) {
-                            pre.setString("#Pass", control0.text);
+                            pre.setString("#Pass", control3.text);
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text('Saved Password')));

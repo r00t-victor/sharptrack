@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sharptrack/screens/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sharptrack/skeleton.dart';
 import 'welcomescreen.dart';
+import 'lockscreen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -30,7 +33,11 @@ class _SplashScreenState extends State<SplashScreen>
     if (loggedin != null && loggedin) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(
+            builder: (context) =>
+                Provider.of<Skeleton>(context, listen: false).loggedin
+                    ? HomePage()
+                    : LockScreen()),
       );
     } else {
       Navigator.pushReplacement(
@@ -47,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Set your desired background color
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
