@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sharptrack/screens/homepage.dart';
+import 'package:sharptrack/screens/splashscreen.dart';
 import 'package:sharptrack/skeleton.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
             const AppBarTheme(backgroundColor: Colors.black, centerTitle: true),
       ),
       title: '#Track',
-      home: const HomePage(),
+      home: SplashScreen(),
     );
   }
 }
