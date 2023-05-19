@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: ((context) {
-                        return ProfilePage();
+                        return const ProfilePage();
                       }),
                     ),
                   );
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: currentPage == 0 ? HomePageContent() : Settings(),
+        body: currentPage == 0 ? HomePageContent() : const Settings(),
         bottomNavigationBar: NavigationBar(
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
