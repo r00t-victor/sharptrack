@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'smsprocessor.dart';
 import 'package:telephony/telephony.dart';
-import 'package:flutter_background/flutter_background.dart';
 
 BuildContext? appContext;
 //Static function for backround running
@@ -91,18 +90,18 @@ class Skeleton extends ChangeNotifier {
     if (_name == null) {
       final prefs = SharedPreferences.getInstance();
       prefs.then((value) {
-        _name = value.getString('name');
+        _name = value.getString('#Name');
         notifyListeners();
       });
     }
-    return _name ?? 'Saurabh';
+    return _name ?? 'User';
   }
 
   set setName(String name) {
     _name = name;
     final prefs = SharedPreferences.getInstance();
     prefs.then((value) {
-      value.setString('name', name);
+      value.setString('#Name', name);
       notifyListeners();
     });
   }
