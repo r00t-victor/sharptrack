@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:sharptrack/skeleton.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -131,9 +133,16 @@ class _SettingsState extends State<Settings> {
                         onPressed: () async {
                           SharedPreferences pre =
                               await SharedPreferences.getInstance();
-                          pre.setString("#Name", control2.text);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Saved Name')));
+                          if (control2.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Name Field Empty')));
+                          } else {
+                            Provider.of<Skeleton>(context, listen: false)
+                                .setName = control2.text;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Saved Name')));
+                          }
                           control2.clear();
                         },
                         style: ElevatedButton.styleFrom(
@@ -164,10 +173,10 @@ class _SettingsState extends State<Settings> {
                     });
                   },
                   style: TextButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 36, 45, 49),
-                    foregroundColor: Color.fromARGB(255, 238, 241, 242),
+                    backgroundColor: const Color.fromARGB(255, 36, 45, 49),
+                    foregroundColor: const Color.fromARGB(255, 238, 241, 242),
                     alignment: Alignment.center,
-                    minimumSize: Size(180.0, 35.0),
+                    minimumSize: const Size(180.0, 35.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
