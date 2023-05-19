@@ -36,6 +36,7 @@ void startTelephony(BuildContext context) {
 
 class Skeleton extends ChangeNotifier {
   String? _name;
+  bool _loggedin = false;
 
   final List<String> servicesLabels = [
     'Messages',
@@ -103,6 +104,14 @@ class Skeleton extends ChangeNotifier {
       value.setString('#Name', name);
       notifyListeners();
     });
+  }
+
+  bool get loggedin {
+    return _loggedin;
+  }
+
+  set setloggedin(bool v) {
+    _loggedin = v;
   }
 
   void enableBackgoundService(BuildContext context) async {
