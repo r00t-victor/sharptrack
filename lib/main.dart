@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sharptrack/screens/homepage.dart';
 import 'package:sharptrack/skeleton.dart';
-import 'package:flutter_background/flutter_background.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
             const AppBarTheme(backgroundColor: Colors.black, centerTitle: true),
       ),
       title: '#Track',
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

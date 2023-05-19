@@ -38,8 +38,9 @@ class _HomePageState extends State<HomePage> {
         await FlutterBackground.initialize(androidConfig: androidConfig);
     if (success) {
       print("background enabled");
-    } else
+    } else {
       print("background not enabled");
+    }
   }
 
   int currentPage = 0;
