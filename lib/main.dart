@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sharptrack/screens/homepage.dart';
 import 'package:sharptrack/screens/splashscreen.dart';
 import 'package:sharptrack/skeleton.dart';
-import 'package:flutter_background/flutter_background.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(

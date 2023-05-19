@@ -38,8 +38,9 @@ class _HomePageState extends State<HomePage> {
         await FlutterBackground.initialize(androidConfig: androidConfig);
     if (success) {
       print("background enabled");
-    } else
+    } else {
       print("background not enabled");
+    }
   }
 
   int currentPage = 0;
@@ -67,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: ((context) {
-                        return ProfilePage();
+                        return const ProfilePage();
                       }),
                     ),
                   );
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: currentPage == 0 ? HomePageContent() : Settings(),
+        body: currentPage == 0 ? HomePageContent() : const Settings(),
         bottomNavigationBar: NavigationBar(
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
