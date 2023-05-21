@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sharptrack/screens/profilepage.dart';
 import 'package:sharptrack/screens/helpscreen.dart';
 import 'package:sharptrack/skeleton.dart';
 import 'package:sharptrack/widgets/homepagecontent.dart';
@@ -21,6 +20,10 @@ class _HomePageState extends State<HomePage> {
     Provider.of<Skeleton>(context, listen: false)
         .enableBackgoundService(context);
     enableBackgroundService();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // do something
+      Provider.of<Skeleton>(context, listen: false).loadServicesActiveStatus();
+    });
   }
 
   void enableBackgroundService() async {
@@ -62,30 +65,18 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) {
-                        return const ProfilePage();
-                      }),
-                    ),
-                  );
-                },
-                child: Consumer<Skeleton>(
-                  builder: (context, value, child) => Text(
-                    value.name[0],
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                    ),
+              child: Consumer<Skeleton>(
+                builder: (context, value, child) => Text(
+                  value.name[0],
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
                   ),
                 ),
               ),
             ),
           ),
-          title: const Text('#Track'),
+          title: const Text('SharpTrack'),
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),

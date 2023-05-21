@@ -5,7 +5,6 @@ import 'package:sharptrack/skeleton.dart';
 class ServicesCard extends StatefulWidget {
   ServicesCard({super.key, required this.index});
   final int index;
-
   @override
   State<ServicesCard> createState() => _ServicesCardState();
 }
@@ -16,33 +15,40 @@ class _ServicesCardState extends State<ServicesCard> {
     return Consumer<Skeleton>(
       builder: (context, value, child) {
         return Card(
-          elevation: value.servicesActive[widget.index] ? 1.0 : 0.0,
-          color: value.servicesActive[widget.index]
-              ? Colors.white
-              : Theme.of(context).scaffoldBackgroundColor,
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                Provider.of<Skeleton>(context, listen: false)
-                    .toggleServices(widget.index, context);
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(value.servicesIcons[widget.index]),
-                  Text(
-                    value.servicesLabels[widget.index],
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      color: Color.fromARGB(255, 107, 107, 107),
+          elevation: 1.0,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(value.servicesIcons[widget.index]),
+                    const SizedBox(
+                      width: 10.0,
                     ),
-                  ),
-                ],
-              ),
+                    Text(
+                      value.servicesLabels[widget.index],
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 107, 107, 107),
+                      ),
+                    ),
+                  ],
+                ),
+                Switch(
+                  value: Provider.of<Skeleton>(context)
+                      .servicesActive[widget.index],
+                  onChanged: (bool v) {
+                    setState(() {
+                      Provider.of<Skeleton>(context, listen: false)
+                          .toggleServices(widget.index, context, v);
+                    });
+                  },
+                )
+              ],
             ),
           ),
         );
