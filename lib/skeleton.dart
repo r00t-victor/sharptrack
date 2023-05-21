@@ -53,7 +53,7 @@ class Skeleton extends ChangeNotifier {
     Icons.do_not_disturb
   ];
 
-  List<bool> servicesActive = [false, true, true, true, true];
+  List<bool> servicesActive = [false, false, false, false, false];
 
   List<String> functionsForHistory = [
     'Ring on',
@@ -73,15 +73,43 @@ class Skeleton extends ChangeNotifier {
 
   List<int> history = [];
 
-  void toggleServices(int index, BuildContext context) {
+  void loadServicesActiveStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? l = prefs.getString('servicesActive');
+    if (l != null) {
+      int index = 1;
+      l.runes.forEach((element) {
+        servicesActive[index] = (element == 49); //ASCII val of 1
+        index += 1;
+      });
+      notifyListeners();
+    }
+  }
+
+  void toggleServices(int index, BuildContext context, bool v) {
     print("Toggling ${servicesLabels[index]}");
-    servicesActive[index] = !servicesActive[index];
+    servicesActive[index] = v;
     if (servicesActive[index]) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('${servicesLabels[index]} enabled!')));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('${servicesLabels[index]} disabled!')));
+    }
+    if (index > 0) {
+      final prefs = SharedPreferences.getInstance();
+      prefs.then((value) {
+        String l = '';
+        for (int i = 1; i < servicesActive.length; i++) {
+          l += servicesActive[i] ? '1' : '0';
+        }
+        value.setString('servicesActive', l).then((value) {
+          if (value)
+            print('updated');
+          else
+            print('error update');
+        });
+      });
     }
     notifyListeners();
   }
