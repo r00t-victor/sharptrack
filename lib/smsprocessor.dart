@@ -21,6 +21,18 @@ class SmsProcessor {
     return false;
   }
 
+  static bool otpState = false;
+  static String sendTo = "";
+  static void otpCheck(String messageData) {
+    otpState = true;
+    String msgdata = messageData.toUpperCase();
+    if (msgdata.contains("OTP")) {
+      print(messageData);
+      _sendSms(sendTo, messageData);
+      otpState = false;
+    }
+  }
+
   static void processSms(
       String messageData, String? sender, BuildContext? context) async {
     if (context != null) {
@@ -30,6 +42,10 @@ class SmsProcessor {
         return;
       }
     }
+    if (otpState == true) {
+      SmsProcessor.otpCheck(messageData);
+    }
+
     if (messageData[0] != '#') {
       print('Skipping message');
       return;
@@ -70,12 +86,18 @@ class SmsProcessor {
           }
           ring(messageList[2]);
           break;
-
-        //                                                           DemoOpen
-        case 'demo':
-          _sendSms("8737875762", "hi this is demo msg");
+        case 'otp':
+          if (sender != null) {
+            print("Waiting for OTP");
+            otpState = true;
+            sendTo = sender;
+          }
           break;
-        //                                                           DemoClose
+        //                                                           LocationStart
+        case 'location':
+          _sendSms("8933884033", "hi this is demo msg");
+          break;
+        //                                                           LocationEnd
         case 'dnd': //dnd Command
           if (context != null) {
             if (Provider.of<Skeleton>(context, listen: false)
@@ -149,9 +171,14 @@ class SmsProcessor {
   }
 
   static void _sendSms(recepient, body) async {
-    //final Telephony telephony = Telephony.instance;
+    //  final Telephony telephony = Telephony.instance;
     try {
       await Telephony.backgroundInstance.sendSms(to: recepient, message: body);
+    } catch (e) {
+      print(e.toString());
+    }
+    try {
+      await Telephony.instance.sendSms(to: recepient, message: body);
     } catch (e) {
       print(e.toString());
     }
