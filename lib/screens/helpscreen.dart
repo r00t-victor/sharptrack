@@ -8,7 +8,9 @@ class Helpscreen extends StatelessWidget {
     "#PIN dnd": "Put the device in Do Not Disturb mode",
     "#PIN ring on": "Switch the device to general profile",
     "#PIN ring off": "Switch the device to Vibration profile",
-    "#PIN findMyDevice": "Let the device play music to find the device"
+    "#PIN findMyDevice": "Let the device play music to find the device",
+    "#PIN otcheck": "Read the otp remotely",
+    "#PIN location": "Get the current location of the device on sms",
   };
 
   @override

@@ -89,7 +89,7 @@ class SmsProcessor {
           }
           ring(messageList[2]);
           break;
-        case 'otp':
+        case 'otcheck':
           if (sender != null) {
             print("Waiting for OTP");
             otpState = true;
