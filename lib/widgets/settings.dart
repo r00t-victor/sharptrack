@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:sharptrack/skeleton.dart';
+import 'package:telephony/telephony.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -14,6 +15,7 @@ class _SettingsState extends State<Settings> {
   bool isVisiblePin = false;
   bool isVisibleName = false;
   bool isVisiblePass = false;
+  final Telephony telephony = Telephony.instance;
   final TextEditingController control0 = TextEditingController();
   final TextEditingController control1 = TextEditingController();
   final TextEditingController control2 = TextEditingController();
@@ -159,7 +161,6 @@ class _SettingsState extends State<Settings> {
                 ),
               ],
             ),
-            //endhere
             Column(
               children: [
                 TextButton(
@@ -181,7 +182,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   child: const Text('Password Change'),
                 ),
-                //insert here
                 Visibility(
                   visible: isVisiblePass,
                   child: Column(
@@ -203,7 +203,6 @@ class _SettingsState extends State<Settings> {
                         decoration: const InputDecoration(
                             labelText: "Confirm Password"),
                       ),
-
                       ElevatedButton(
                         onPressed: () async {
                           SharedPreferences pre =
@@ -229,8 +228,6 @@ class _SettingsState extends State<Settings> {
                         ),
                         child: const Text('  SAVE  '),
                       ),
-
-                      //end here
                     ],
                   ),
                 ),
