@@ -4,7 +4,6 @@ import 'package:sharptrack/skeleton.dart';
 import 'package:sharptrack/widgets/homepagecontent.dart';
 import 'package:sharptrack/widgets/settings.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_background/flutter_background.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,31 +18,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     Provider.of<Skeleton>(context, listen: false)
         .enableBackgoundService(context);
-    enableBackgroundService();
+    WidgetsFlutterBinding.ensureInitialized();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // do something
       Provider.of<Skeleton>(context, listen: false).loadServicesActiveStatus();
     });
-  }
-
-  void enableBackgroundService() async {
-    const androidConfig = FlutterBackgroundAndroidConfig(
-      notificationTitle: "Sharptrack",
-      notificationText:
-          "Background notification for keeping sharptrack running in the background",
-      notificationImportance: AndroidNotificationImportance.Default,
-      notificationIcon: AndroidResource(
-          name: 'background_icon',
-          defType: 'drawable'), // Default is ic_launcher from folder mipmap
-    );
-    print("enabling background");
-    bool success =
-        await FlutterBackground.initialize(androidConfig: androidConfig);
-    if (success) {
-      print("background enabled");
-    } else {
-      print("background not enabled");
-    }
   }
 
   int currentPage = 0;
