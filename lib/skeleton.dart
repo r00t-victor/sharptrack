@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'smsprocessor.dart';
 import 'package:telephony/telephony.dart';
+import 'package:geolocator/geolocator.dart';
 
 BuildContext? appContext;
 //Static function for backround running
@@ -153,6 +154,25 @@ class Skeleton extends ChangeNotifier {
       loadHistory();
     } else {
       print('permission not available');
+    }
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      print('Location services are disabled.');
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+        return;
+      }
+    }
+    try {
+      Geolocator.getCurrentPosition();
+    } catch (e) {
+      print(e.toString());
     }
   }
 
