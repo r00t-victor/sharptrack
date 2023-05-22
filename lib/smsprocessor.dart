@@ -9,6 +9,7 @@ import 'package:volume_control/volume_control.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:telephony/telephony.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SmsProcessor {
   static Future<bool> verifyPin(String pass) async {
@@ -21,6 +22,8 @@ class SmsProcessor {
     return false;
   }
 
+  static double latitude = 0.0;
+  static double longitude = 0.0;
   static bool otpState = false;
   static String sendTo = "";
   static void otpCheck(String messageData) {
@@ -95,7 +98,11 @@ class SmsProcessor {
           break;
         //                                                           LocationStart
         case 'location':
-          _sendSms("8933884033", "hi this is demo msg");
+          if (sender != null) {
+            await getCurrentLocation();
+            _sendSms(sender, "Latitude: $latitude \nLongitude: $longitude");
+          }
+
           break;
         //                                                           LocationEnd
         case 'dnd': //dnd Command
@@ -191,6 +198,34 @@ class SmsProcessor {
       await FlutterPhoneDirectCaller.callNumber(sender);
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  static Future<void> getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      print('Location services are disabled.');
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      print(
+          'Location permissions are permanently denied, we cannot request permissions.');
+      return;
+    }
+    Position? position = await Geolocator.getLastKnownPosition();
+    if (position != null) {
+      latitude = position.latitude;
+      longitude = position.longitude;
     }
   }
 }
